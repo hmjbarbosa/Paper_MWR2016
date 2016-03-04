@@ -1,0 +1,69 @@
+--------------------------------------------------------------------------------
+Makfile
+
+Created a Makefile to compile everything! Just type 'make' and it
+should create the executables below. You will need to have g++ and
+gfortran in your PATH.
+
+--------------------------------------------------------------------------------
+R013-convert.f90
+
+I changed the name to reflect what the executable will do: CONVERT
+ARBITRARY STATION NAMES INTO A SEQUENCE OF NUMBERS: 1, 2, 3, ... Note
+that it assumes the same sequency of stations into every time
+interval.
+
+Code was translated from F77 to F90. Removal of serious bug in the
+code: it only outputed the last time of each station!!! Now it works
+with any number of stations and any number of lines in the input text
+file (but < 9999). Program expects 1 file name as INPUT.
+
+The program does not write the CTL anymore... This task is now left to
+the "C program" who writes the station-binary for grads.
+
+Two extra files are now created: temp.bin and temp.ctl. These are
+regular files for grads (not station!!) where each station is recorded
+as a different variable.
+
+How to run:
+  ./R013-convert <input file>
+
+Output:
+  temp.ctl
+  temp.bin
+  station2modelgrid.txt
+
+For testing just run:
+  grads -lc 'run grads_temp.gs'    => will open temp.bin and plot it
+  gnuplot                          => run gnuplot
+  gnuplot> load 'gnuplot_temp.gp'  => will open station2modelgrid.txt and plot it
+
+--------------------------------------------------------------------------------
+R013-stn2model
+
+I changed the name to reflect what the executable will do. Code was
+translated from C to CPP. Removal of bug in the code: changes in hours
+and minutes were not considered while writing the Grads's terminator
+group.  Now it works with any number of stations and any number of
+lines in the input text file. Program expects 1 file name as INPUT.
+
+Now an input file is necessary. The output will have the same basic
+name, but with the extension changed to .bin and .ctl.
+
+NOTE: The sample code from Grads's webpage, used here to write the
+station-binary file, asks for a string with 8 characters as the
+station name. Therefore, ONE CAN USE THIS PROGRAM DIRECTLY ON THE
+FIRST INPUT DATA, WITHOUT RUNNING THE CONVERSION PROGRAM.  Moreover,
+it does not matter the order of the stations in the file, as long as
+all times are together.
+
+How to run:
+  ./R013-stn2model <input file>
+
+Output: 
+  <input file>.bin
+  <input file>.ctl
+
+Before trying to open the station-binary file, remember to run:
+
+  stnmap -i <input file>.ctl
