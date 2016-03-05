@@ -1,0 +1,12 @@
+'reinit'
+'open /usr/local/opengrads-2.0.1.oga.1/Resources/SampleDatasets/model.ctl'
+'set lon -180 180'
+'set mproj robinson'
+'set mpdraw off'
+'set gxout shaded'
+'d zg(lev=300)'
+'set rgb 20 1 1 1 -70'
+'set line 20'
+'set shpopts 20'
+'draw shp grads_lowres_land'
+*
