@@ -31,9 +31,9 @@ set(gca,'YDir','Normal');
 pbaspect(daspect)
 
 n=get(gca,'xtick');
-set(gca,'xticklabel',sprintf('%.1f |',n'));
+set(gca,'xticklabel',compose('%.1f',n));
 n=get(gca,'ytick');
-set(gca,'yticklabel',sprintf('%.1f |',n'));
+set(gca,'yticklabel',compose('%.1f',n));
 
 %% =====================================================================
 %% SITES
@@ -82,6 +82,7 @@ for i=1:nstation
           'MarkerEdgeColor','k','MarkerFace',col,'MarkerSize',7);
   end
 end
+
 for i=1:nstation
   if (lon(i)>=mlon1 & lon(i)<=mlon2 & ...
       lat(i)>=mlat1 & lat(i)<=mlat2)
@@ -163,15 +164,15 @@ leg=['\bf{Dense Network}' char(10) ...
      '$60\% \leq Freq < 80\%$' char(10) ... 
      '$80\% \leq Freq $' char(10) ];
 
-h=annotation('textbox',[0.183 0.727 0.24 0.14],'string','', ...
+h=annotation('textbox',[0.253 0.727 0.18 0.14],'string','', ...
            'backgroundcolor',[1 1 1],'edgecolor',[0 0 0],...
            'fitboxtotext','off','interpreter','latex');
 
-h=annotation('ellipse',[0.193 0.805 0.014 0.017],'facecolor',[1 0 0],'edgecolor',[0 0 0]);
-h=annotation('ellipse',[0.193 0.775 0.014 0.017],'facecolor',[1 1 0],'edgecolor',[0 0 0]);
-h=annotation('ellipse',[0.193 0.745 0.014 0.017],'facecolor',[0 1 0],'edgecolor',[0 0 0]);
+h=annotation('ellipse',[0.263 0.805 0.014 0.017],'facecolor',[1 0 0],'edgecolor',[0 0 0]);
+h=annotation('ellipse',[0.263 0.775 0.014 0.017],'facecolor',[1 1 0],'edgecolor',[0 0 0]);
+h=annotation('ellipse',[0.263 0.745 0.014 0.017],'facecolor',[0 1 0],'edgecolor',[0 0 0]);
 
-t=annotation('textbox',[0.213 0.7 0.45 0.28],'string', leg, 'fontsize',11,...
+t=annotation('textbox',[0.273 0.7 0.45 0.28],'string', leg, 'fontsize',11,...
              'linestyle','none',...
              'horizontalalignment','left','verticalalignment','bottom',...
              'interpreter','latex');
@@ -181,4 +182,4 @@ print([figname '.png'],'-dpng',['-r' num2str(dpi)]);
 print([figname '.eps'],'-depsc2');
 saveas(gca,[figname '.fig'],'fig');
 
-% fim
+% end-of-script
