@@ -40,7 +40,7 @@ set(gca,'yticklabel',compose('%.1f',n));
 %% =====================================================================
 
 % list of stations
-tmp=read_mixed_csv(['station_file_list_T02_2011_2012'],' ');
+tmp=read_mixed_csv('station_file_list_T02_2011_2012',' ');
 
 nstation=size(tmp,1);
 name=tmp(:,1);
@@ -62,17 +62,17 @@ dens=[0.7846    0.8356    0.9529    0.9104    0.6406    0.6037 ...
     
 % plot all sites
 for i=1:nstation
-  if (lon(i)>=mlon1 & lon(i)<=mlon2 & ...
-      lat(i)>=mlat1 & lat(i)<=mlat2)
+  if ((lon(i)>=mlon1) && (lon(i)<=mlon2) && ...
+      (lat(i)>=mlat1) && (lat(i)<=mlat2))
     
     clear col
     if (dens(i)<0.40)
       col='k';
     end
-    if (dens(i)>=0.40 & dens(i)<0.60)
+    if ((dens(i)>=0.40) && (dens(i)<0.60))
       col='r';
     end
-    if (dens(i)>=0.60 & dens(i)<0.80)
+    if ((dens(i)>=0.60) && (dens(i)<0.80))
       col='y';
     end
     if (dens(i)>=0.80)
@@ -84,22 +84,22 @@ for i=1:nstation
 end
 
 for i=1:nstation
-  if (lon(i)>=mlon1 & lon(i)<=mlon2 & ...
-      lat(i)>=mlat1 & lat(i)<=mlat2)
+  if ((lon(i)>=mlon1) && (lon(i)<=mlon2) && ...
+      (lat(i)>=mlat1) && (lat(i)<=mlat2))
     switch i
-     case 1,
+     case 1
       text(lon(i),lat(i)-0.02,name{i},'fontsize',9,'color',[1 1 1])
-     case 2,
+     case 2
       text(lon(i)-0.03,lat(i)+0.03,name{i},'fontsize',9,'color',[1 1 1])
-     case 3, 
+     case 3 
       text(lon(i)-0.05,lat(i)-0.03,name{i},'fontsize',9,'color',[1 1 1])
-     case 4,
+     case 4
       text(lon(i)-0.09,lat(i)-0.02,name{i},'fontsize',9,'color',[1 1 1])
-     case 9, 
+     case 9
       text(lon(i)-0.08,lat(i)-0.02,name{i},'fontsize',9,'color',[1 1 1])
-     case 13, 
+     case 13 
       text(lon(i)-0.1,lat(i),name{i},'fontsize',9,'color',[1 1 1])
-     case 14, 
+     case 14
       text(lon(i)-0.02,lat(i)+0.02,name{i},'fontsize',9,'color',[1 1 1])
      case 18
       text(lon(i)-0.05,lat(i)+0.03,name{i},'fontsize',9,'color',[1 1 1])
@@ -122,8 +122,8 @@ toread=1;
 if exist([pwd '/googleearth.mat'],'file')==2
   load googleearth.mat
   % does the image cover the desired region?
-  if ~(mlon1<min(lonVect) | mlon2>max(lonVect) | ...
-      mlat1<min(latVect) | mlat2>max(latVect))
+  if ~((mlon1<min(lonVect)) || (mlon2>max(lonVect)) || ...
+      (mlat1<min(latVect)) || (mlat2>max(latVect)))
     toread=0;
   end
   % is the size of the image too much bigger then requested?
@@ -134,7 +134,7 @@ if exist([pwd '/googleearth.mat'],'file')==2
   end
 end
 if (toread>0)
-  disp(['connecting to google earth servers...']);
+  disp('connecting to google earth servers...');
   [lonVect, latVect, imag]=plot_google_map('maptype','satellite');
   save('googleearth.mat','lonVect','latVect','imag');
 end
@@ -159,20 +159,20 @@ ylabel(a2,'Distance (km)')
 prettify(a2)
 set(a2,'box','off')
 
-leg=['\bf{Dense Network}' char(10) ...
-     '$40\% \leq Freq < 60\%$' char(10) ... 
-     '$60\% \leq Freq < 80\%$' char(10) ... 
-     '$80\% \leq Freq $' char(10) ];
+leg=['\bf{Dense Network}' newline ...
+     '$40\% \leq Freq < 60\%$' newline ...
+     '$60\% \leq Freq < 80\%$' newline ...
+     '$80\% \leq Freq $' newline ];
 
-h=annotation('textbox',[0.253 0.727 0.18 0.14],'string','', ...
+annotation('textbox',[0.253 0.727 0.18 0.14],'string','', ...
            'backgroundcolor',[1 1 1],'edgecolor',[0 0 0],...
            'fitboxtotext','off','interpreter','latex');
 
-h=annotation('ellipse',[0.263 0.805 0.014 0.017],'facecolor',[1 0 0],'edgecolor',[0 0 0]);
-h=annotation('ellipse',[0.263 0.775 0.014 0.017],'facecolor',[1 1 0],'edgecolor',[0 0 0]);
-h=annotation('ellipse',[0.263 0.745 0.014 0.017],'facecolor',[0 1 0],'edgecolor',[0 0 0]);
+annotation('ellipse',[0.263 0.805 0.014 0.017],'facecolor',[1 0 0],'edgecolor',[0 0 0]);
+annotation('ellipse',[0.263 0.775 0.014 0.017],'facecolor',[1 1 0],'edgecolor',[0 0 0]);
+annotation('ellipse',[0.263 0.745 0.014 0.017],'facecolor',[0 1 0],'edgecolor',[0 0 0]);
 
-t=annotation('textbox',[0.273 0.7 0.45 0.28],'string', leg, 'fontsize',11,...
+annotation('textbox',[0.273 0.7 0.45 0.28],'string', leg, 'fontsize',11,...
              'linestyle','none',...
              'horizontalalignment','left','verticalalignment','bottom',...
              'interpreter','latex');
