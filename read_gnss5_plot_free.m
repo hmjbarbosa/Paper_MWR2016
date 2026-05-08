@@ -156,7 +156,9 @@ end
 
 % verify if events are in sequential order
 jd=data(:,:,1)+data(:,:,2)/365.25;
-if any(diff(reshape(jd,ntimes*nevents,1)))<0
+% bug 8-may-2026 this was always false! correct code checks if any value is negative
+%if any(diff(reshape(jd,ntimes*nevents,1)))<0
+if any(diff(reshape(jd,ntimes*nevents,1))<0)
   disp('something wrong... date goes back in time!')
   return
 end
